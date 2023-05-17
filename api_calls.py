@@ -4,39 +4,44 @@ from dotenv import load_dotenv
 import os
 import requests
 
+BASE_URL = 'https://api.spotify.com/v1/'
+
 def configure():
     load_dotenv()
 
-configure()
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
-AUTH_URL = 'https://accounts.spotify.com/api/token'
-BASE_URL = 'https://api.spotify.com/v1/'
+def authenticate():
+    configure()
+    CLIENT_ID = os.getenv('CLIENT_ID')
+    CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+    AUTH_URL = 'https://accounts.spotify.com/api/token'
 
-auth_response = requests.post(AUTH_URL, {
-    'grant_type': 'client_credentials',
-    'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET
-})
+    auth_response = requests.post(AUTH_URL, {
+        'grant_type': 'client_credentials',
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+    })
 
- # convert the response to JSON
-auth_response_data = auth_response.json()
+    # convert the response to JSON
+    auth_response_data = auth_response.json()
+    # Save the access token.
+    access_token = auth_response_data['access_token']   
+    
+    return access_token
 
-# Save the access token.
-access_token = auth_response_data['access_token']
 
-""" Pull some data for an artist """
-headers = {
+""" GET Requests for individual artists """
+def get_artist(artist_id):
+
+    access_token = authenticate()
+    headers = {
     'Authorization': 'Bearer {token}'.format(token=access_token)
-}
+    }
 
-artist_id = '46gyXjRIvN1NL1eCB8GBxo'
+    r = requests.get(f'{BASE_URL}artists/{artist_id}', headers=headers)
 
-r = requests.get(BASE_URL + 'artists/' + artist_id, headers=headers)
+    return r.json()
 
-r = r.json()
-
-print(r)
+print(get_artist('46gyXjRIvN1NL1eCB8GBxo'))
 
 
