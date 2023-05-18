@@ -8,6 +8,7 @@ BASE_URL = 'https://api.spotify.com/v1/'
 
 def configure():
     load_dotenv()
+    
 
 
 def authenticate():
