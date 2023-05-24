@@ -4,6 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///artists_database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Artist(db.Model):
@@ -14,7 +15,7 @@ class Artist(db.Model):
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
-        return f'<Task {self.id}>'
+        return f'<Artist {self.id}>'
 
 if __name__ == "__main__":
     app.run()
