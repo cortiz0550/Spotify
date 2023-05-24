@@ -13,8 +13,5 @@ class Artist(db.Model):
     genres = db.Column(db.String(200))
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
-
-
-
 if __name__ == "__main__":
     app.run()
