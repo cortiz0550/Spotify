@@ -3,8 +3,11 @@
 from dotenv import load_dotenv
 import os
 import requests
+from datetime import datetime 
 
 BASE_URL = 'https://api.spotify.com/v1/'
+
+
 
 def configure():
     load_dotenv()
@@ -31,8 +34,12 @@ def authenticate():
     return access_token
 
 
+
 """ GET Requests for individual artists """
 def get_artist(artist_id, access_token):
+    # if (datetime.utcnow() - last_authentication).total_seconds() > 3300:
+    #     access_key = authenticate()
+    #     last_authentication = datetime.utcnow()
     
     headers = {
     'Authorization': 'Bearer {token}'.format(token=access_token)
@@ -42,6 +49,7 @@ def get_artist(artist_id, access_token):
 
     return r.json()
 
-print(get_artist('46gyXjRIvN1NL1eCB8GBxo', access_token=authenticate()))
+
+print(get_artist('3Y7RZ31TRPVadSFVy1o8os', access_token=authenticate()))
 
 
