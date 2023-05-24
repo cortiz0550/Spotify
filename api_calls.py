@@ -8,7 +8,7 @@ BASE_URL = 'https://api.spotify.com/v1/'
 
 def configure():
     load_dotenv()
-    
+
 
 
 def authenticate():
@@ -32,9 +32,8 @@ def authenticate():
 
 
 """ GET Requests for individual artists """
-def get_artist(artist_id):
-
-    access_token = authenticate()
+def get_artist(artist_id, access_token):
+    
     headers = {
     'Authorization': 'Bearer {token}'.format(token=access_token)
     }
@@ -43,6 +42,6 @@ def get_artist(artist_id):
 
     return r.json()
 
-print(get_artist('46gyXjRIvN1NL1eCB8GBxo'))
+print(get_artist('46gyXjRIvN1NL1eCB8GBxo', access_token=authenticate()))
 
 
