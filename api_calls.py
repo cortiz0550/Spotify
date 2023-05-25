@@ -50,6 +50,5 @@ def get_artist(artist_id, access_token):
     return r.json()
 
 
-print(get_artist('3Y7RZ31TRPVadSFVy1o8os', access_token=authenticate()))
 
 

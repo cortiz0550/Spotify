@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 60%;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #000000;
+}
+
+.content {
+    text-align: center;
+}
+
+.text-box {
+    width: 30%;
+    margin-top: 1rem;
+}

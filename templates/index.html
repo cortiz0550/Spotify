@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Artist Database</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <a href="/" style="text-decoration: none;"><h1>Artists</h1></a>
+
+    {% if artists|length < 1 %}
+    <h4>There are no artists. Add one below!</h4>
+    {% else %}
+    <table>
+        <col style="width: 50%">
+        <col style="width: 25%">
+        <col style="width: 25%">
+        <tr>
+            <th>Artist</th>
+            <th>Date Added</th>
+            <th>Genres</th>
+            <th>Actions</th>
+        </tr>
+        {% for artist in artists %}
+
+            <tr>
+                <td>{{ artist.name }}</td>
+                <td>{{ artist.date_added.date() }}</td>
+                <td>{{ artist.genres }}</td>
+                <td>
+                    <a href="/delete/{{ artist.id }}">Delete</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input class="text-box" type="text" name="artist_id" id="artist_id">
+            <input type="submit" value="Add Artist">
+    
+        </form>
+    </div>
+</div>
+{% endblock %}
