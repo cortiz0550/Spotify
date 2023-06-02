@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: sans-serif;
+    background-color: rgb(108, 255, 255);
 }
 
 table, th, td {
@@ -24,4 +25,13 @@ h1 {
 .text-box {
     width: 30%;
     margin-top: 1rem;
+}
+
+.trash-btn img {
+    padding-top: 0.15rem;
+    width: 20px;
+}
+
+.trash-btn img:hover {
+    background-color: lightcoral;
 }

@@ -5,43 +5,56 @@
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <a href="/" style="text-decoration: none;"><h1>Artists</h1></a>
+<div class="main-page">
+    <div class="avg-pop">
+        <h3>Avg. Popularity</h3>
+        {% if artists|length < 1 %}
+        <p>--</p>
+        {% else %}
+        <p>{{ avg_pop }}</p>
+        {% endif %}
+    </div>
 
-    {% if artists|length < 1 %}
-    <h4>There are no artists. Add one below!</h4>
-    {% else %}
-    <table>
-        <col style="width: 50%">
-        <col style="width: 25%">
-        <col style="width: 25%">
-        <tr>
-            <th>Artist</th>
-            <th>Date Added</th>
-            <th>Genres</th>
-            <th>Actions</th>
-        </tr>
-        {% for artist in artists %}
+    <div class="content">
+        <a href="/" style="text-decoration: none;"><h1>Check out your artists!</h1></a>
 
+        {% if artists|length < 1 %}
+        <h4>There are no artists. Add one below!</h4>
+        {% else %}
+        <table>
+            <col style="width: 50%">
+            <col style="width: 25%">
+            <col style="width: 25%">
             <tr>
-                <td>{{ artist.name }}</td>
-                <td>{{ artist.date_added.date() }}</td>
-                <td>{{ artist.genres }}</td>
-                <td>
-                    <a href="/delete/{{ artist.id }}">Delete</a>
-                </td>
+                <th>Artist</th>
+                <th>Date Added</th>
+                <th>Genres</th>
+                <th>Popularity</th>
+                <th>Actions</th>
             </tr>
+            {% for artist in artists %}
 
-        {% endfor %}
-    </table>
-    {% endif %}
+                <tr>
+                    <td>{{ artist.name }}</td>
+                    <td>{{ artist.date_added.date() }}</td>
+                    <td>{{ artist.genres }}</td>
+                    <td>{{ artist.popularity }}</td>
+                    <td>
+                        <a class="trash-btn" href="/delete/{{ artist.id }}"><img src="static/images/trash-can.png" alt="Delete artist"></a>
+                    </td>
+                </tr>
 
-    <div class="form">
-        <form action="/" method="POST">
-            <input class="text-box" type="text" name="artist_id" id="artist_id">
-            <input type="submit" value="Add Artist">
-    
-        </form>
+            {% endfor %}
+        </table>
+        {% endif %}
+
+        <div class="form">
+            <form action="/" method="POST">
+                <input class="text-box" type="text" name="artist_id" id="artist_id">
+                <input type="submit" value="Add Artist">
+        
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
