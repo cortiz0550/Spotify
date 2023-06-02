@@ -59,9 +59,8 @@ def get_top_items(access_token, data_type, time_range='medium_term', limit='20',
     }
 
     r = requests.get(URL, headers=headers)
-    print(r.json())
 
-    return r.
+    return r.son()
 
 access = authenticate()
 print(get_top_items(access_token=access, data_type='artists'))
