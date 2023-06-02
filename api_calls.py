@@ -50,5 +50,18 @@ def get_artist(artist_id, access_token):
     return r.json()
 
 
+def get_top_items(access_token, data_type, time_range='medium_term', limit='20', offset='0'):
+    
+    URL = f'{BASE_URL}me/top/{data_type}?time_range={time_range}&limit={limit}&offset={offset}'
 
+    headers = {
+    'Authorization': 'Bearer {token}'.format(token=access_token)
+    }
 
+    r = requests.get(URL, headers=headers)
+    print(r.json())
+
+    return r.
+
+access = authenticate()
+print(get_top_items(access_token=access, data_type='artists'))
