@@ -1,7 +1,7 @@
 import statistics
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, select
 from datetime import datetime
 
 import api_calls as api
@@ -12,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Artist(db.Model):
+    __tablename__ = 'artist'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     artist_id = db.Column(db.String(100), nullable=False)
@@ -24,6 +25,7 @@ class Artist(db.Model):
     
 
 class Song(db.Model):
+    __tablename__ = 'song'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     artist_id = db.Column(db.String(100), nullable=False)
@@ -68,6 +70,7 @@ def index():
         artists_avg_pop = Artist.query.with_entities(func.avg(Artist.popularity)).all()
         return render_template('index.html', artists=artists, avg_pop=artists_avg_pop)
 
+
 @app.route('/delete/<int:id>')
 def delete(id):
     artist_to_delete = Artist.query.get_or_404(id)
@@ -78,6 +81,13 @@ def delete(id):
         return redirect('/')
     except:
         return 'There was a problem deleting that artist.'
+    
+
+@app.route('/played_songs/')
+def get_recent_tracks():
+    pass
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

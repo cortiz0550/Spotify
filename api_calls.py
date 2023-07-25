@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import requests
 from datetime import datetime 
+import time
 
 BASE_URL = 'https://api.spotify.com/v1/'
 
@@ -53,6 +54,18 @@ def get_artist(artist_id, access_token):
 def get_top_items(access_token, data_type, time_range='medium_term', limit='20', offset='0'):
     
     URL = f'{BASE_URL}me/top/{data_type}?time_range={time_range}&limit={limit}&offset={offset}'
+
+    headers = {
+    'Authorization': 'Bearer {token}'.format(token=access_token)
+    }
+
+    r = requests.get(URL, headers=headers)
+
+    return r.json()
+
+
+def get_recent_tracks(access_token, after, limit=50):
+    URL = BASE_URL + "me/player/recently-played"
 
     headers = {
     'Authorization': 'Bearer {token}'.format(token=access_token)
