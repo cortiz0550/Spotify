@@ -21,6 +21,17 @@ class Artist(db.Model):
 
     def __repr__(self):
         return f'<Artist {self.id}>'
+    
+
+class Song(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    artist_id = db.Column(db.String(100), nullable=False)
+    popularity = db.Column(db.Integer)
+    played_at = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return f'<Song self.id>'
 
 
 @app.route('/', methods=['GET', 'POST'])
